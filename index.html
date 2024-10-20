@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Combo Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #121212; /* Black background */
+        }
+        .combo-card {
+            background-color: #1e1e2e; /* Darker card background */
+            transition: transform 0.2s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        .combo-card:hover {
+            transform: scale(1.05);
+        }
+        .combo-selected {
+            border: 2px solid #d8b3ff; /* Lighter shade of purple for selected */
+        }
+        .button-3d {
+            background: linear-gradient(to bottom, #d8b3ff, #a27dc0);
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+        .button-3d:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center bg-gray-900 text-white">
+    <div class="w-full max-w-md p-6 combo-card rounded-lg shadow-md mt-10">
+        <div class="flex justify-between items-center mb-5">
+            <h1 class="text-2xl font-bold text-purple-600">Daily Combo</h1>
+            <span class="bg-purple-600 text-gray-900 font-semibold px-3 py-1 rounded-full">Reward: 90000</span>
+        </div>
+
+        <!-- Dynamic Avatar Section -->
+        <div id="combo-container" class="grid grid-cols-3 gap-4 mb-5">
+            <div class="p-2 rounded-lg flex justify-center cursor-pointer combo-card" data-index="1">
+                <img src="https://cdn-icons-png.flaticon.com/512/3445/3445181.png" alt="Avatar 1" class="w-12 h-12">
+            </div>
+            <div class="p-2 rounded-lg flex justify-center cursor-pointer combo-card" data-index="2">
+                <img src="https://cdn-icons-png.flaticon.com/512/3445/3445182.png" alt="Avatar 2" class="w-12 h-12">
+            </div>
+            <div class="p-2 rounded-lg flex justify-center cursor-pointer combo-card" data-index="3">
+                <img src="https://cdn-icons-png.flaticon.com/512/3445/3445191.png" alt="Avatar 3" class="w-12 h-12">
+            </div>
+            <div class="p-2 rounded-lg flex justify-center cursor-pointer combo-card" data-index="4">
+                <img src="https://cdn-icons-png.flaticon.com/512/3445/3445177.png" alt="Avatar 4" class="w-12 h-12">
+            </div>
+            <div class="p-2 rounded-lg flex justify-center cursor-pointer combo-card" data-index="5">
+                <img src="https://cdn-icons-png.flaticon.com/512/3445/3445190.png" alt="Avatar 5" class="w-12 h-12">
+            </div>
+            <div class="p-2 rounded-lg flex justify-center cursor-pointer combo-card" data-index="6">
+                <img src="https://cdn-icons-png.flaticon.com/512/3445/3445178.png" alt="Avatar 6" class="w-12 h-12">
+            </div>
+            <div class="p-2 rounded-lg flex justify-center cursor-pointer combo-card" data-index="7">
+                <img src="https://cdn-icons-png.flaticon.com/512/3445/3445183.png" alt="Avatar 7" class="w-12 h-12">
+            </div>
+            <div class="p-2 rounded-lg flex justify-center cursor-pointer combo-card" data-index="8">
+                <img src="https://cdn-icons-png.flaticon.com/512/3445/3445184.png" alt="Avatar 8" class="w-12 h-12">
+            </div>
+            <div class="p-2 rounded-lg flex justify-center cursor-pointer combo-card" data-index="9">
+                <img src="https://cdn-icons-png.flaticon.com/512/3445/3445180.png" alt="Avatar 9" class="w-12 h-12">
+            </div>
+            <div class="p-2 rounded-lg flex justify-center cursor-pointer combo-card" data-index="10">
+                <img src="https://cdn-icons-png.flaticon.com/512/3445/3445179.png" alt="Avatar 10" class="w-12 h-12">
+            </div>
+        </div>
+
+        <!-- Reward Button -->
+        <button id="claim-reward" class="w-full py-2 rounded-md font-bold text-white button-3d">
+            Claim Reward
+        </button>
+    </div>
+
+    <script>
+        let selectedOrder = [];
+
+        // Handle item selection and toggling
+        document.querySelectorAll('#combo-container > div').forEach(item => {
+            item.addEventListener('click', () => {
+                if (selectedOrder.includes(item.dataset.index)) {
+                    item.classList.remove('combo-selected');
+                    selectedOrder = selectedOrder.filter(i => i !== item.dataset.index);
+                } else {
+                    item.classList.add('combo-selected');
+                    selectedOrder.push(item.dataset.index);
+                }
+            });
+        });
+
+        // Button Click Event
+        document.getElementById("claim-reward").addEventListener("click", () => {
+            const correctOrder = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+            if (JSON.stringify(selectedOrder) === JSON.stringify(correctOrder)) {
+                alert("Congratulations! You've won the reward!");
+            } else {
+                alert("Incorrect order. Try again!");
+            }
+            selectedOrder = [];
+            document.querySelectorAll('#combo-container > div').forEach(item => {
+                item.classList.remove('combo-selected');
+            });
+        });
+    </script>
+</body>
+              </html>
